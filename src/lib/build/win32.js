@@ -30,6 +30,7 @@ const BuildWin32Binary = (path, binaryDir, version, platform, arch, {
     includes = null,
     withFFmpeg = false,
     sideBySide = false,
+    sideBySideZip = false,
     production = false,
     winIco = null
 }, callback) => {
@@ -330,14 +331,27 @@ const BuildWin32Binary = (path, binaryDir, version, platform, arch, {
 
         if(sideBySide) {
 
-            let err;
+            if ( !sideBySideZip ) {
+                let err;
 
-            console.log(`${ majorIdx++ }: Copy application from ${ this.workingDir }`);
+                console.log(`${ majorIdx++ }: Copy application from ${ this.workingDir }`);
 
-            err = yield copy(this.workingDir, this.buildDir, cb.single);
+                err = yield copy(this.workingDir, this.buildDir, cb.single);
 
-            if(err) {
-                return callback(err);
+                if(err) {
+                    return callback(err);
+                }
+            }
+            else {
+                let err, nwFile;
+
+                console.log(`${ majorIdx++ }: Compress application (save side-by-side zip to ${ sideBySideZip }`);
+
+                [err, nwFile] = yield NWB.util.ZipDirectory(this.workingDir, [], sideBySideZip, cb.expect(2));
+
+                if(err) {
+                    return callback(err);
+                }
             }
 
         }

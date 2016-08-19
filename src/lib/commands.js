@@ -106,6 +106,7 @@ const NwBuilderBuild = (path, options, callback) => {
                     includes: options.includes ? options.includes : null,
                     withFFmpeg: options.withFFmpeg ? true : false,
                     sideBySide: options.sideBySide ? true : false,
+                    sideBySideZip: options.sideBySideZip ? options.sideBySideZip : false,
                     production: options.production ? true : false,
                     winIco: options.winIco ? options.winIco : null
                 }, cb.expect(2));

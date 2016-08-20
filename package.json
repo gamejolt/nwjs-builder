@@ -4,8 +4,6 @@
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
-    "preinstall": "mkdir bin && echo \"\" >./bin/nwb.js",
-    "postinstall": "npm run build",
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "test": "mocha",

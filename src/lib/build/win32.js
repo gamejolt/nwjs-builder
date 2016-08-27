@@ -334,7 +334,7 @@ const BuildWin32Binary = (path, binaryDir, version, platform, arch, {
 
             console.log(`${ majorIdx++ }: Copy application from ${ this.workingDir }`);
 
-            err = yield copy(this.workingDir, this.buildDir, cb.single);
+            err = yield copy(this.workingDir, `${this.buildDir}/package`, cb.single);
 
             if(err) {
                 return callback(err);
